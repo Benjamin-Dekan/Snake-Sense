@@ -4,7 +4,7 @@ Snake Sense is an embedded systems project that modernizes the classic arcade ga
 
 ## Features
 * **Gesture Control:** Uses a 3-axis accelerometer (LSM9DS0) to detect hand tilt in real-time.
-* **Userspace I2C Driver:** Implements Linux I2C communication using the `i2c-dev` library to interface with the sensor directly from userspace, bypassing kernel module complexity.
+* **Userspace I2C Application:** Implements Linux I2C communication using the `i2c-dev` library to interface with the sensor directly from userspace, bypassing kernel module complexity.
 * **Smart Directioning:** Features a threshold-based control algorithm (magnitude > 8500) check to distinguish between resting tremors and intentional movement.
 * **Qt GUI:** Renders game graphics at 50Hz to a 4.3" LCD Cape using the Qt Framework.
 
@@ -41,5 +41,5 @@ Snake Sense is an embedded systems project that modernizes the classic arcade ga
 
 ## Contributors
 **Team Pythons** 
-* **Benjamin Dekan** (bdekan@bu.edu) - Hardware Integration & I2C Driver
+* **Benjamin Dekan** (bdekan@bu.edu) - Hardware Integration & I2C Application
 * **Chenyi Jiang** (chenyij@bu.edu) - Game Logic & Qt Implementation
