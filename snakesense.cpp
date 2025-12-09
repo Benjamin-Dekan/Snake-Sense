@@ -19,6 +19,7 @@ SnakeSense::~SnakeSense() {
     if (i2cF >= 0) ::close(i2cF); 
 }
 
+// Sets up the I2C / Accelerometer registers
 void SnakeSense::initSensor() {
     const char* f = "/dev/i2c-2";
 
@@ -36,6 +37,7 @@ void SnakeSense::initSensor() {
     write(i2cF, pos, 2);
 }
 
+// Reads raw data from the sensor and updates the direction based on tilt
 void SnakeSense::readSensor() {
     uint8_t r = data_addr | 0x80;
     uint8_t data[6];
@@ -68,6 +70,7 @@ void SnakeSense::readSensor() {
     }
 }
 
+// Resets the snake and starts the game loop
 void SnakeSense::startGame() {
     snake.clear();
     snake.append(QPoint(BOARD_WIDTH / 2, BOARD_HEIGHT / 2));
@@ -88,7 +91,8 @@ void SnakeSense::generateFood() {
     while (!check_pos) { 
         food.setX(QRandomGenerator::global()->bounded(BOARD_WIDTH));
         food.setY(QRandomGenerator::global()->bounded(BOARD_HEIGHT));
-        
+
+        // Ensure food spawn doesn't overlap with the snake
         check_pos = true;
         for (int i = 0; i < snake.size(); i++) {
             if (snake[i] == food) {
@@ -99,6 +103,7 @@ void SnakeSense::generateFood() {
     }
 }
 
+// Reads input, moves snake, checks for collisions, and updates GUI
 void SnakeSense::gameLoop() {
     if (!running) {
         return;
@@ -116,6 +121,7 @@ void SnakeSense::gameLoop() {
     update();
 }
 
+// Calculates updated head pos and handles eating logic
 void SnakeSense::moveSnake() {
     QPoint head = snake.first();
     QPoint new_head = head;
@@ -145,6 +151,7 @@ void SnakeSense::moveSnake() {
     }
 }
 
+// Checks if snake collides with walls or itself
 bool SnakeSense::checkCollision() {
     QPoint head = snake.first();
     
@@ -162,6 +169,7 @@ bool SnakeSense::checkCollision() {
     return false;
 }
 
+// Displays pop-up game-over screen
 void SnakeSense::gameOver() {
     running = false;
     timer->stop();
@@ -172,6 +180,7 @@ void SnakeSense::gameOver() {
     msg.exec();
 }
 
+// Qt function to draw the graphics
 void SnakeSense::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     
@@ -208,6 +217,7 @@ void SnakeSense::paintEvent(QPaintEvent *event) {
     }
 }
 
+// Handles keyboard inputs (arrows for testing, space for restarting)
 void SnakeSense::keyPressEvent(QKeyEvent *event) {
     if (!running && event->key() == Qt::Key_Space) {
         startGame();
@@ -247,4 +257,5 @@ void SnakeSense::keyPressEvent(QKeyEvent *event) {
             }
             break;
     }
+
 }
