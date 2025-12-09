@@ -37,6 +37,7 @@ Snake Sense is an embedded systems project that modernizes the classic arcade ga
 * **`snakesense.h`**: Header file defining the game class, sensor vars, and I2C regs (`0x20`, `0x28`).
 * **`snakesense.cpp`**: Main file containing the game loop, userspace I2C connection logic, and Qt painting events.
 * **`main.cpp`**: Application entry point.
+* **`snakesense.pro`**: Qmake config file defining the project's sources, headers, and dependencies.
 
 ## Contributors
 **Team Pythons** 
